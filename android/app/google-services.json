@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "225887237392",
+    "project_id": "lendsqr-fp-news",
+    "storage_bucket": "lendsqr-fp-news.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225887237392:android:170eb55d2aedf53412e195",
+        "android_client_info": {
+          "package_name": "com.newsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225887237392-c6a168ilu8v6kq1p0dlh0h0l59uggkm6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.newsapp",
+            "certificate_hash": "93c4261ed747175343b38bec20c04fd9cc54664d"
+          }
+        },
+        {
+          "client_id": "225887237392-vco8rt4vd7l4cndto26ni2cosrv2n94p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDhfgmYouFijh7b4I21wVGaOFuLii6BfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225887237392-vco8rt4vd7l4cndto26ni2cosrv2n94p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

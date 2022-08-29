@@ -2,7 +2,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Entypo';
 
-const Header = () => {
+const Header = ({title}) => {
   return (
     <View
       style={{
@@ -25,7 +25,7 @@ const Header = () => {
             padding: 10,
             borderColor: 'white',
           }}>
-          lendsqr-fp
+          {title}
         </Text>
       </View>
       <Image
