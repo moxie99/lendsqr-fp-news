@@ -18,6 +18,7 @@ import {
 
 import {initializeApp} from 'firebase/app';
 import {firebaseConfig} from '../firebase-config';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 const url =
   'https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://d2vvqscadf4c1f.cloudfront.net/JsOiEO3LRQiPDyVDCgLu_Fotolia_98658521_Subscription_Monthly_M.jpg';
@@ -36,6 +37,7 @@ const RegistrationScreen = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
         console.log('account created');
+        crashlytics().log(`User has signed in`);
         const user = userCredential.user;
         setAccessToken(user?.stsTokenManager?.accessToken);
         console.log(user);
@@ -43,6 +45,7 @@ const RegistrationScreen = () => {
       })
       .catch(error => {
         Alert.alert(error);
+        crashlytics().recordError(error);
       });
   };
 

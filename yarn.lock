@@ -1794,6 +1794,11 @@
     "@expo/config-plugins" "^5.0.1"
     stacktrace-js "^2.0.0"
 
+"@react-native-firebase/remote-config@^15.4.0":
+  version "15.4.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/remote-config/-/remote-config-15.4.0.tgz#793161f2364db80873dd3fefb7372b833b08abc2"
+  integrity sha512-jFdC2NT85fqvZFcT5BEY/CY4YlMZyEu7U8BksvYBMlrORalGpc/V/jgaZ7zJzjeBMrP6h8AutXKI3R/JVhgXSg==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"

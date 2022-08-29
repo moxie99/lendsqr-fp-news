@@ -11,6 +11,7 @@ import React from 'react';
 
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 const HomeScreen = () => {
   // holding the data from  the backend
@@ -56,6 +57,9 @@ const HomeScreen = () => {
           height: 50,
           backgroundColor: 'red',
           borderRadius: 20,
+        }}
+        onPress={() => {
+          crashlytics().crash();
         }}>
         <Text style={{color: 'white'}}>Crash</Text>
       </TouchableOpacity>
