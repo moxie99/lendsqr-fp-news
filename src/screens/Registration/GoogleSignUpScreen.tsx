@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {
   CompositeNavigationProp,
@@ -14,6 +14,7 @@ import {ParentStackParamList} from '../../navigation/ParentNavigation';
 import {signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
 import {auth} from '../../firebase/config';
 import {provider} from '../../firebase/config';
+import {google} from '../../assets/images';
 type EntryScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabScreenParamList>,
   NativeStackNavigationProp<ParentStackParamList, 'Login'>
@@ -65,14 +66,26 @@ const GoogleSignUpScreen = () => {
       <TouchableOpacity
         onPress={googleHandler}
         style={{
-          height: 50,
-          width: 200,
-          backgroundColor: '#AFEEEE',
+          height: 70,
+          width: 400,
+          backgroundColor: '#0F9D58',
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 10,
+          flexDirection: 'row',
+          gap: 10,
         }}>
-        <Text style={{color: 'black'}}>Google SignUp</Text>
+        <Image source={google} style={{width: 100, height: 50}} />
+        <Text
+          style={{
+            color: 'white',
+            marginRight: 20,
+            fontSize: 20,
+            fontWeight: 'bold',
+            lineHeight: 20,
+          }}>
+          Google SignUp
+        </Text>
       </TouchableOpacity>
     </View>
   );
