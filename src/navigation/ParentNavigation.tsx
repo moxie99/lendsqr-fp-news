@@ -9,6 +9,7 @@ import RegistrationScreen from '../screens/Registration/RegistrationScreen';
 // declaring types for the different screen groups based on the data that will be passed into them when
 
 import {decode, encode} from 'base-64';
+import GoogleSignUpScreen from '../screens/Registration/GoogleSignUpScreen';
 
 if (!global.btoa) {
   global.btoa = encode;
@@ -21,7 +22,8 @@ export type ParentStackParamList = {
   Main: {user: user};
   //Order: {order: Order};
   Login: {};
-  Register: {};
+  Register: undefined;
+  Google: {user: user};
 };
 const ParentStack = createNativeStackNavigator<ParentStackParamList>();
 const ParentNavigator = () => {
@@ -46,6 +48,11 @@ const ParentNavigator = () => {
             // options={{ headerShown: false }}
             name="Register"
             component={RegistrationScreen}
+          />
+          <ParentStack.Screen
+            // options={{ headerShown: false }}
+            name="Google"
+            component={GoogleSignUpScreen}
           />
         </ParentStack.Group>
       )}

@@ -22,7 +22,7 @@ import {createUserWithEmailAndPassword} from 'firebase/auth';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {logo} from '../../assets/images';
 import {auth, db} from '../../firebase/config';
-import {doc, set, collection} from 'firebase/firestore';
+import {doc, collection, setDoc} from 'firebase/firestore';
 import styles from './styles';
 
 type EntryScreenNavigationProp = CompositeNavigationProp<
@@ -62,17 +62,19 @@ export default function RegistrationScreen() {
         };
         const usersRef = collection(db, 'users');
         const userDoc = doc(usersRef, uid);
-        set(userDoc, data)
+        setDoc(userDoc, data)
           .then(() => {
-            navigation.navigate('Main', {user: data});
+            Alert.alert('Registration Successful');
+            navigation.navigate('Google', {user: data});
           })
           .catch((error: any) => {
             Alert.alert(error);
-            console.log(error);
+            console.log('$$$$$', error);
           });
       })
       .catch((error: any) => {
-        Alert.alert(error.code);
+        Alert.alert(error);
+        console.log('****', error);
       });
 
     setFullName('');

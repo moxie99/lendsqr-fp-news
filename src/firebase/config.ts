@@ -3,15 +3,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyDz_RYgxS51cMbnCRJv1mCBL2JCma87MRQ',
-//   authDomain: 'your-auth-domain-b1234.firebaseapp.com',
-//   databaseURL: 'https://your-database-name.firebaseio.com',
-//   projectId: 'lendsqr-fp-news-42ce3',
-//   storageBucket: 'lendsqr-fp-news-42ce3.appspot.com',
-//   messagingSenderId: '12345-insert-yourse',
-//   appId: 'insert yours: 1:1234:web:ee873bd1234c0deb7eba61ce',
-// };
+
 
 const firebaseConfig = {
   apiKey: 'AIzaSyANUVC3RQE_AP3dnYrNIvpAzLjbYKODTeI',
@@ -28,3 +20,5 @@ export const db = getFirestore(app);
 export const auth = getAuth();
 export const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
+
+

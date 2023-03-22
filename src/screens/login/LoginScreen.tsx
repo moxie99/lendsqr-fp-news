@@ -10,10 +10,20 @@ import {TabScreenParamList} from '../../navigation/TabNavigator';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ParentStackParamList} from '../../navigation/ParentNavigation';
 import React, {useState} from 'react';
-import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {logo} from '../../assets/images';
 import styles from './styles';
+import {auth, db} from '../../firebase/config';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {collection, doc, getDoc} from 'firebase/firestore';
 
 type EntryScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabScreenParamList>,
@@ -28,10 +38,44 @@ export default function LoginScreen() {
 
   const navigation = useNavigation<EntryScreenNavigationProp>();
   const onFooterLinkPress = () => {
-    navigation.navigate('Register', {});
+    navigation.navigate('Register');
   };
 
-  const onLoginPress = () => {};
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isValidEmail = emailRegex.test(email);
+
+  const onLoginPress = () => {
+    if (password.length < 8 && !isValidEmail) {
+      Alert.alert('Email or password is invalid');
+      return;
+    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then(response => {
+        const uid = response.user.uid;
+        const usersRef = collection(db, 'users');
+        const userDoc = doc(usersRef, uid);
+        getDoc(userDoc)
+          .then((firestoreDocument: {exists: any; data: () => any}) => {
+            if (!firestoreDocument.exists) {
+              Alert.alert('User does not exist anymore.');
+              return;
+            }
+            const user = firestoreDocument.data();
+            console.log(user);
+            Alert.alert('Log in Successful');
+            navigation.navigate('Google', {user});
+          })
+          .catch((error: any) => {
+            Alert.alert(error);
+          });
+      })
+      .catch(error => {
+        Alert.alert(error);
+      });
+
+    setEmail('');
+    setPassword('');
+  };
 
   const {
     params: {},
