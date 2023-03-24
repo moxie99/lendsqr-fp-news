@@ -3,13 +3,13 @@
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import Sports from '../screens/Home/Sports';
 import Technology from '../screens/Home/Technology';
 import Health from '../screens/Home/Health';
 import Finance from '../screens/Home/Finance';
-import {Icon} from '@rneui/themed';
-
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 export type TabScreenParamList = {
   Sports: undefined;
   Technology: undefined;
@@ -18,7 +18,7 @@ export type TabScreenParamList = {
 };
 const Tab = createBottomTabNavigator<TabScreenParamList>();
 
-const TabNavigator = () => {
+const TabNavigator = props => {
   const navigation = useNavigation();
 
   React.useLayoutEffect(() => {
@@ -26,41 +26,43 @@ const TabNavigator = () => {
       headerShown: false,
     });
   }, [navigation]);
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
-        tabBarActiveTintColor: '#510400',
+        headerShown: false,
+        tabBarActiveTintColor: '#0080ff',
         tabBarInactiveTintColor: '#D3D3D3',
         tabBarIcon: ({focused, color, size}) => {
           if (route.name === 'Sports') {
             return (
-              <Icon
-                name="sc-telegram"
-                type="evilicon"
-                color={focused ? '#045D5D' : '#D3D3D3'}
+              <EntypoIcon
+                name="video-camera"
+                size={30}
+                color={focused ? '#510400' : '#D3D3D3'}
               />
             );
           } else if (route.name === 'Health') {
             return (
-              <Icon
-                name="sc-telegram"
-                type="evilicon"
+              <EntypoIcon
+                name="video-camera"
+                size={30}
                 color={focused ? '#510400' : '#D3D3D3'}
               />
             );
           } else if (route.name === 'Technology') {
             return (
-              <Icon
-                name="sc-telegram"
-                type="evilicon"
+              <EntypoIcon
+                name="video-camera"
+                size={30}
                 color={focused ? '#510400' : '#D3D3D3'}
               />
             );
           } else if (route.name === 'Finance') {
             return (
-              <Icon
-                name="sc-telegram"
-                type="evilicon"
+              <EntypoIcon
+                name="video-camera"
+                size={30}
                 color={focused ? '#510400' : '#D3D3D3'}
               />
             );

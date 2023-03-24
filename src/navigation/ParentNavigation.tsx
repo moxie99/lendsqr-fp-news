@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TabNavigator from './TabNavigator';
 //import ModalScreen from '../screens/ModalScreen';
@@ -27,17 +28,34 @@ export type ParentStackParamList = {
 };
 const ParentStack = createNativeStackNavigator<ParentStackParamList>();
 const ParentNavigator = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+
+  const handleUser = async () => {
+    const user = await AsyncStorage.getItem('user');
+    const currentUser = JSON.parse(user);
+    setUser(currentUser);
+  };
+
+  React.useEffect(() => {
+    handleUser();
+  }, []);
+
   return (
     <ParentStack.Navigator>
       {/* bottom tab Navogation */}
 
       {user ? (
         <ParentStack.Group>
-          <ParentStack.Screen name="Main" component={TabNavigator} />
+          {/* <ParentStack.Screen name="Main" component={TabNavigator} /> */}
+          <ParentStack.Screen name="Main">
+            {props => <TabNavigator {...props} extraData={user} />}
+          </ParentStack.Screen>
         </ParentStack.Group>
       ) : (
+        // <Stack.Screen name="Home">
+        //     {props => <HomeScreen {...props} extraData={user} />}
+        //   </Stack.Screen>
         <ParentStack.Group>
           <ParentStack.Screen
             // options={{ headerShown: false }}

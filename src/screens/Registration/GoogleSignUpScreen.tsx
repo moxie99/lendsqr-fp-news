@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {View} from 'react-native';
+import React, {useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   CompositeNavigationProp,
   RouteProp,
@@ -11,9 +14,11 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {TabScreenParamList} from '../../navigation/TabNavigator';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ParentStackParamList} from '../../navigation/ParentNavigation';
-import {signInWithPopup, GoogleAuthProvider} from 'firebase/auth';
-import {auth} from '../../firebase/config';
-import {provider} from '../../firebase/config';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import {google} from '../../assets/images';
 type EntryScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabScreenParamList>,
@@ -22,6 +27,7 @@ type EntryScreenNavigationProp = CompositeNavigationProp<
 
 type EntryScreenRouteProp = RouteProp<ParentStackParamList, 'Register'>;
 const GoogleSignUpScreen = () => {
+  const [userInfo, setUserInfo] = useState<object>({});
   const navigation = useNavigation<EntryScreenNavigationProp>();
 
   const {
@@ -30,63 +36,44 @@ const GoogleSignUpScreen = () => {
 
   console.log(user);
 
-  const googleHandler = async () => {
-    provider.setCustomParameters({prompt: 'select_account'});
-    signInWithPopup(auth, provider)
-      .then(result => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        console.log(token);
-        // The signed-in user info.
-        const user = result.user;
-        // redux action? --> dispatch({ type: SET_USER, user });
-        console.log(user);
-      })
-      .catch(error => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        console.log(errorCode);
-        const errorMessage = error.message;
-        console.log(errorMessage);
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        console.log(email);
-        const credential = GoogleAuthProvider.credentialFromError(error);
+  GoogleSignin.configure({
+    scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
+    iosClientId:
+      '828725666522-po0e9thcstjtetkqthbsbm4u4q32p73c.apps.googleusercontent.com',
+    // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+    // androidClientId:
+    //   '828725666522-mikq6ie9cu99ctdi3asrq16vb7asnoae.apps.googleusercontent.com',
+  });
 
-        console.log(credential);
-      });
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      await AsyncStorage.setItem('user', JSON.stringify(userInfo));
+      console.log(userInfo);
+      setUserInfo({userInfo});
+      navigation.navigate('Main', {userInfo});
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
   };
-  const {
-    params: {},
-  } = useRoute<EntryScreenRouteProp>();
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <TouchableOpacity
-        onPress={googleHandler}
-        style={{
-          height: 70,
-          width: 400,
-          backgroundColor: '#0F9D58',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 10,
-          flexDirection: 'row',
-          gap: 10,
-        }}>
-        <Image source={google} style={{width: 100, height: 50}} />
-        <Text
-          style={{
-            color: 'white',
-            marginRight: 20,
-            fontSize: 20,
-            fontWeight: 'bold',
-            lineHeight: 20,
-          }}>
-          Google SignUp
-        </Text>
-      </TouchableOpacity>
+      <GoogleSigninButton
+        style={{width: 192, height: 48}}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={signIn}
+      />
     </View>
   );
 };

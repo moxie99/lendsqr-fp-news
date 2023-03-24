@@ -1,14 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import NewsListing from './NewsListing';
 
 const Sports = () => {
-  return (
-    <View>
-      <Text>Sports</Text>
-    </View>
-  );
+  return <NewsListing />;
 };
 
 export default Sports;
-
-const styles = StyleSheet.create({});

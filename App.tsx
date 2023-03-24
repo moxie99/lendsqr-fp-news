@@ -5,7 +5,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import ParentNavigator from './src/navigation/ParentNavigation';
 import codePush, {UpdateDialog} from 'react-native-code-push';
-
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Provider} from 'react-redux';
+import {store} from './redux/store';
 // Define a custom update dialog
 const customDialog: UpdateDialog = {
   appendReleaseDescription: true,
@@ -26,13 +28,18 @@ function checkForUpdates() {
     installMode: codePush.InstallMode.IMMEDIATE,
   });
 }
+
 export default function App() {
   useEffect(() => {
     checkForUpdates();
   }, []);
   return (
-    <NavigationContainer>
-      <ParentNavigator />
-    </NavigationContainer>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <ParentNavigator />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
   );
 }
