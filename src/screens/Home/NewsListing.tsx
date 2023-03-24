@@ -1,39 +1,50 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState} from 'react';
 import {SearchBar} from '@rneui/themed';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Text, View} from 'react-native';
+import {ActivityIndicator, SafeAreaView, Text, View} from 'react-native';
 import './styles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Avatar} from '@rneui/themed';
-import {ListItem} from '@rneui/themed';
-import {Icon} from '@rneui/themed';
 import {useSearchEnterpriseQuery} from '../../../redux/api';
+import NewsHeader from '../../components/NewsHeader';
+
 type AvatarData = {
   image_url: string;
 };
 export default function NewsListing() {
-  const [user, setUser] = useState(null);
   const insets = useSafeAreaInsets();
   const [search, setSearch] = useState('');
-  const [expanded, setExpanded] = useState(false);
 
-  const {data, isLoading, error} = useSearchEnterpriseQuerys('Elon Musk');
-  const handleUser = async () => {
-    const user = await AsyncStorage.getItem('user');
-    const currentUser = JSON.parse(user);
-    setUser(currentUser);
-  };
-  const updateSearch = search => {
+  const {data, isLoading, error} = useSearchEnterpriseQuery({
+    q: 'Sport',
+    lang: 'en',
+    sort_by: 'relevancy',
+    page: '1',
+  });
+
+  console.log('data', data?.articles[2]);
+
+  const updateSearch = (search: React.SetStateAction<string>) => {
     setSearch(search);
   };
 
-  React.useEffect(() => {
-    handleUser();
-  }, []);
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <ActivityIndicator size={'large'} animating color={'#0080ff'} />
+      </View>
+    );
+  }
 
-  console.log(user?.user);
+  if (error) {
+    return (
+      <SafeAreaView>
+        <Text>Error: {error.message} Hello Eror</Text>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <View
       style={{
@@ -42,7 +53,7 @@ export default function NewsListing() {
         flex: 1,
         marginHorizontal: '3%',
       }}>
-      <Avatar size={64} rounded source={{uri: user?.user?.photo}} />
+      <NewsHeader />
       <SearchBar
         placeholder="Search News..."
         onChangeText={updateSearch}
@@ -53,33 +64,9 @@ export default function NewsListing() {
         }}
         inputContainerStyle={{
           backgroundColor: 'white',
-          innerWidth: '100%',
+          width: '100%',
         }}
       />
-      <ListItem.Accordion
-        content={
-          <>
-            <Icon name="place" size={30} />
-            <ListItem.Content>
-              <ListItem.Title>List Accordion</ListItem.Title>
-            </ListItem.Content>
-          </>
-        }
-        isExpanded={expanded}
-        onPress={() => {
-          setExpanded(!expanded);
-        }}>
-        {Object?.entries(user?.user).map((l, i) => (
-          <ListItem key={i} onPress={log} bottomDivider>
-            <Avatar title={l.name[0]} source={{uri: l.avatar_url}} />
-            <ListItem.Content>
-              <ListItem.Title>{l.name}</ListItem.Title>
-              <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
-            </ListItem.Content>
-            <ListItem.Chevron />
-          </ListItem>
-        ))}
-      </ListItem.Accordion>
     </View>
   );
 }

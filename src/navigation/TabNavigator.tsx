@@ -8,8 +8,9 @@ import Sports from '../screens/Home/Sports';
 import Technology from '../screens/Home/Technology';
 import Health from '../screens/Home/Health';
 import Finance from '../screens/Home/Finance';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import CommIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 export type TabScreenParamList = {
   Sports: undefined;
   Technology: undefined;
@@ -36,34 +37,34 @@ const TabNavigator = props => {
         tabBarIcon: ({focused, color, size}) => {
           if (route.name === 'Sports') {
             return (
-              <EntypoIcon
-                name="video-camera"
+              <MaterialIcon
+                name="sports-football"
                 size={30}
-                color={focused ? '#510400' : '#D3D3D3'}
-              />
-            );
-          } else if (route.name === 'Health') {
-            return (
-              <EntypoIcon
-                name="video-camera"
-                size={30}
-                color={focused ? '#510400' : '#D3D3D3'}
+                color={focused ? '#0080ff' : '#D3D3D3'}
               />
             );
           } else if (route.name === 'Technology') {
             return (
-              <EntypoIcon
-                name="video-camera"
+              <CommIcon
+                name="cpu-64-bit"
                 size={30}
-                color={focused ? '#510400' : '#D3D3D3'}
+                color={focused ? '#0080ff' : '#D3D3D3'}
+              />
+            );
+          } else if (route.name === 'Health') {
+            return (
+              <Ionicons
+                name="fitness"
+                size={30}
+                color={focused ? '#0080ff' : '#D3D3D3'}
               />
             );
           } else if (route.name === 'Finance') {
             return (
-              <EntypoIcon
-                name="video-camera"
+              <CommIcon
+                name="finance"
                 size={30}
-                color={focused ? '#510400' : '#D3D3D3'}
+                color={focused ? '#0080ff' : '#D3D3D3'}
               />
             );
           }
