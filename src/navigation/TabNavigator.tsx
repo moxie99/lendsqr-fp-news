@@ -19,7 +19,7 @@ export type TabScreenParamList = {
 };
 const Tab = createBottomTabNavigator<TabScreenParamList>();
 
-const TabNavigator = props => {
+const TabNavigator = (props: any) => {
   const navigation = useNavigation();
 
   React.useLayoutEffect(() => {

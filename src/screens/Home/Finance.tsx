@@ -1,14 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import NewsListing from './NewsListing';
 
 const Finance = () => {
-  return (
-    <View>
-      <Text>Finance</Text>
-    </View>
-  );
+  return <NewsListing q="business" />;
 };
 
 export default Finance;
-
-const styles = StyleSheet.create({});

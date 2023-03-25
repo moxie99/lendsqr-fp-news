@@ -1,14 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import NewsListing from './NewsListing';
 
 const Health = () => {
-  return (
-    <View>
-      <Text>Health</Text>
-    </View>
-  );
+  return <NewsListing q="health" />;
 };
 
 export default Health;
-
-const styles = StyleSheet.create({});

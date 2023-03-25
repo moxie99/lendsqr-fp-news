@@ -1,14 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import NewsListing from './NewsListing';
 
 const Technology = () => {
-  return (
-    <View>
-      <Text>Technology</Text>
-    </View>
-  );
+  return <NewsListing q="Apple AND Microsoft AND Tesla" />;
 };
 
 export default Technology;
-
-const styles = StyleSheet.create({});

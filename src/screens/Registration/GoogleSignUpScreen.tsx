@@ -4,12 +4,7 @@
 import {View} from 'react-native';
 import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {
-  CompositeNavigationProp,
-  RouteProp,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {TabScreenParamList} from '../../navigation/TabNavigator';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
@@ -19,30 +14,18 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import {google} from '../../assets/images';
 type EntryScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabScreenParamList>,
   NativeStackNavigationProp<ParentStackParamList, 'Login'>
 >;
 
-type EntryScreenRouteProp = RouteProp<ParentStackParamList, 'Register'>;
 const GoogleSignUpScreen = () => {
-  const [userInfo, setUserInfo] = useState<object>({});
+  const [userInfos, setUserInfos] = useState<userGoogleSignReturn>();
   const navigation = useNavigation<EntryScreenNavigationProp>();
-
-  const {
-    params: {user},
-  } = useRoute<EntryScreenRouteProp>();
-
-  console.log(user);
-
   GoogleSignin.configure({
-    scopes: ['https://www.googleapis.com/auth/drive.readonly'], // what API you want to access on behalf of the user, default is email and profile
+    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
     iosClientId:
       '828725666522-po0e9thcstjtetkqthbsbm4u4q32p73c.apps.googleusercontent.com',
-    // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
-    // androidClientId:
-    //   '828725666522-mikq6ie9cu99ctdi3asrq16vb7asnoae.apps.googleusercontent.com',
   });
 
   const signIn = async () => {
@@ -51,17 +34,14 @@ const GoogleSignUpScreen = () => {
       const userInfo = await GoogleSignin.signIn();
       await AsyncStorage.setItem('user', JSON.stringify(userInfo));
       console.log(userInfo);
-      setUserInfo({userInfo});
-      navigation.navigate('Main', {userInfo});
-    } catch (error) {
+      setUserInfos({userInfo});
+      navigation.navigate('Main', {userInfos});
+    } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
       } else {
-        // some other error happened
+        console.log('Error from server');
       }
     }
   };

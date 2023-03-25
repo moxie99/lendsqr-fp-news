@@ -4,26 +4,33 @@
 import React, {useState} from 'react';
 import {SearchBar} from '@rneui/themed';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ActivityIndicator, SafeAreaView, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import './styles';
 import {useSearchEnterpriseQuery} from '../../../redux/api';
 import NewsHeader from '../../components/NewsHeader';
+import {iteratorSymbol} from 'immer/dist/internal';
+import NewsCard from '../../components/NewsCardOdd';
+import IndicatorExample from '../../components/NewsSlider';
 
 type AvatarData = {
-  image_url: string;
+  q?: string;
 };
-export default function NewsListing() {
+export default function NewsListing({q}: AvatarData) {
   const insets = useSafeAreaInsets();
   const [search, setSearch] = useState('');
 
   const {data, isLoading, error} = useSearchEnterpriseQuery({
-    q: 'Sport',
+    q: q,
     lang: 'en',
     sort_by: 'relevancy',
     page: '1',
   });
-
-  console.log('data', data?.articles[2]);
 
   const updateSearch = (search: React.SetStateAction<string>) => {
     setSearch(search);
@@ -46,11 +53,10 @@ export default function NewsListing() {
   }
 
   return (
-    <View
-      style={{
+    <ScrollView
+      contentContainerStyle={{
         paddingTop: insets.top,
         paddingBottom: insets.bottom,
-        flex: 1,
         marginHorizontal: '3%',
       }}>
       <NewsHeader />
@@ -67,6 +73,15 @@ export default function NewsListing() {
           width: '100%',
         }}
       />
-    </View>
+
+      {/* <IndicatorExample /> */}
+
+      {data &&
+        data?.articles?.map(item => (
+          <ScrollView key={item._id}>
+            <NewsCard item={item} />
+          </ScrollView>
+        ))}
+    </ScrollView>
   );
 }

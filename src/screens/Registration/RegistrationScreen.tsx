@@ -35,6 +35,7 @@ type EntryScreenRouteProp = RouteProp<ParentStackParamList, 'Register'>;
 export default function RegistrationScreen() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -59,6 +60,7 @@ export default function RegistrationScreen() {
           id: uid,
           email,
           fullName,
+          phoneNumber,
         };
         const usersRef = collection(db, 'users');
         const userDoc = doc(usersRef, uid);
@@ -81,6 +83,7 @@ export default function RegistrationScreen() {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+    set;
   };
 
   return (
@@ -124,6 +127,16 @@ export default function RegistrationScreen() {
           placeholder="Confirm Password"
           onChangeText={text => setConfirmPassword(text)}
           value={confirmPassword}
+          underlineColorAndroid="transparent"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholderTextColor="#aaaaaa"
+          secureTextEntry
+          placeholder="Phone Number"
+          onChangeText={text => setPhoneNumber(text)}
+          value={phoneNumber}
           underlineColorAndroid="transparent"
           autoCapitalize="none"
         />

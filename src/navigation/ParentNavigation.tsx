@@ -2,39 +2,34 @@ import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TabNavigator from './TabNavigator';
-//import ModalScreen from '../screens/ModalScreen';
-//import OrderScreen from '../screens/OrderScreen';
 import LoginScreen from '../screens/login/LoginScreen';
 import RegistrationScreen from '../screens/Registration/RegistrationScreen';
-
-// declaring types for the different screen groups based on the data that will be passed into them when
-
-import {decode, encode} from 'base-64';
 import GoogleSignUpScreen from '../screens/Registration/GoogleSignUpScreen';
-
-if (!global.btoa) {
-  global.btoa = encode;
-}
-if (!global.atob) {
-  global.atob = decode;
-}
+import NewsHeader from '../components/NewsHeader';
+import NewsListing from '../screens/Home/NewsListing';
+import NewsDetails from '../screens/Home/NewsDetails';
+import NewsWebPage from '../screens/Home/NewsWebView';
 
 export type ParentStackParamList = {
-  Main: {user: user};
-  //Order: {order: Order};
+  Main: {user: userGoogleSignReturn};
   Login: {};
   Register: undefined;
-  Google: {user: user};
+  Google: undefined;
+  NewsHeader: undefined;
+  NewsListing: {q: string};
+  NewsDetails: {};
+  NewsWebPage: {
+    url: string;
+  };
 };
 const ParentStack = createNativeStackNavigator<ParentStackParamList>();
 const ParentNavigator = () => {
-  // const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [users, setUsers] = useState(null);
 
   const handleUser = async () => {
     const user = await AsyncStorage.getItem('user');
     const currentUser = JSON.parse(user);
-    setUser(currentUser);
+    setUsers(currentUser);
   };
 
   React.useEffect(() => {
@@ -43,35 +38,25 @@ const ParentNavigator = () => {
 
   return (
     <ParentStack.Navigator>
-      {/* bottom tab Navogation */}
-
-      {user ? (
+      {users ? (
         <ParentStack.Group>
-          {/* <ParentStack.Screen name="Main" component={TabNavigator} /> */}
           <ParentStack.Screen name="Main">
-            {props => <TabNavigator {...props} extraData={user} />}
+            {props => <TabNavigator {...props} extraData={users} />}
           </ParentStack.Screen>
+          <ParentStack.Screen name="NewsHeader" component={NewsHeader} />
+          <ParentStack.Screen name="NewsListing" component={NewsListing} />
+          <ParentStack.Screen name="NewsDetails" component={NewsDetails} />
+          <ParentStack.Screen name="NewsWebPage" component={NewsWebPage} />
         </ParentStack.Group>
       ) : (
-        // <Stack.Screen name="Home">
-        //     {props => <HomeScreen {...props} extraData={user} />}
-        //   </Stack.Screen>
         <ParentStack.Group>
-          <ParentStack.Screen
-            // options={{ headerShown: false }}
-            name="Login"
-            component={LoginScreen}
-          />
-          <ParentStack.Screen
-            // options={{ headerShown: false }}
-            name="Register"
-            component={RegistrationScreen}
-          />
-          <ParentStack.Screen
-            // options={{ headerShown: false }}
-            name="Google"
-            component={GoogleSignUpScreen}
-          />
+          <ParentStack.Screen name="Login" component={LoginScreen} />
+          <ParentStack.Screen name="Register" component={RegistrationScreen} />
+          <ParentStack.Screen name="Google" component={GoogleSignUpScreen} />
+          <ParentStack.Screen name="NewsHeader" component={NewsHeader} />
+          <ParentStack.Screen name="Main">
+            {props => <TabNavigator {...props} extraData={users} />}
+          </ParentStack.Screen>
         </ParentStack.Group>
       )}
     </ParentStack.Navigator>
