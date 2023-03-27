@@ -65,7 +65,7 @@ export default function LoginScreen() {
               return;
             }
             const user = firestoreDocument.data();
-            console.log(user);
+
             Alert.alert('Log in Successful');
             navigation.navigate('Google', {user});
           })
@@ -127,3 +127,38 @@ export default function LoginScreen() {
     </View>
   );
 }
+
+export const onLoginPress = () => {
+  if (password.length < 8 && !isValidEmail) {
+    Alert.alert('Email or password is invalid');
+    return;
+  }
+  signInWithEmailAndPassword(auth, email, password)
+    .then(response => {
+      const uid = response.user.uid;
+      const usersRef = collection(db, 'users');
+      const userDoc = doc(usersRef, uid);
+      getDoc(userDoc)
+        .then((firestoreDocument: {exists: any; data: () => any}) => {
+          if (!firestoreDocument.exists) {
+            Alert.alert('User does not exist anymore.');
+            return;
+          }
+          const user = firestoreDocument.data();
+
+          Alert.alert('Log in Successful');
+          navigation.navigate('Google', {user});
+        })
+        .catch((error: any) => {
+          Alert.alert(error);
+        });
+    })
+    .catch(error => {
+      Alert.alert(error);
+    });
+
+  // logMiddleware('login_with_data', {email: email, password: password});
+
+  setEmail('');
+  setPassword('');
+};
