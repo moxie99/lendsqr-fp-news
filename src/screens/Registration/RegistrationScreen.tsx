@@ -166,3 +166,47 @@ export default function RegistrationScreen() {
     </View>
   );
 }
+
+// for the purpose of testing
+// export const onRegisterPress = () => {
+//   if (password !== confirmPassword) {
+//     Alert.alert("Passwords don't match.");
+//     return;
+//   }
+//   createUserWithEmailAndPassword(auth, email, password)
+//     .then((response: {user: {uid: any}}) => {
+//       const uid = response?.user?.uid;
+//       const data = {
+//         id: uid,
+//         email,
+//         fullName,
+//         phoneNumber,
+//       };
+//       const usersRef = collection(db, 'users');
+//       const userDoc = doc(usersRef, uid);
+//       setDoc(userDoc, data)
+//         .then(() => {
+//           Alert.alert('Registration Successful');
+//           navigation.navigate('Google', {user: data});
+//         })
+//         .catch((error: any) => {
+//           Alert.alert(error);
+//         });
+//     })
+//     .catch((error: any) => {
+//       Alert.alert(error);
+//     });
+
+//   // logMiddleware('register_with_data', {
+//   //   email: email,
+//   //   password: password,
+//   //   fullName: fullName,
+//   //   phoneNumber: phoneNumber,
+//   // });
+
+//   setFullName('');
+//   setEmail('');
+//   setPassword('');
+//   setConfirmPassword('');
+//   setPhoneNumber('');
+// };
