@@ -14,7 +14,6 @@ import {
 import './styles';
 import {useSearchEnterpriseQuery} from '../../../redux/api';
 import NewsHeader from '../../components/NewsHeader';
-import {iteratorSymbol} from 'immer/dist/internal';
 import NewsCard from '../../components/NewsCardOdd';
 import IndicatorExample from '../../components/NewsSlider';
 
@@ -24,6 +23,10 @@ type AvatarData = {
 export default function NewsListing({q}: AvatarData) {
   const insets = useSafeAreaInsets();
   const [search, setSearch] = useState('');
+
+  // useEffect(() => {
+  //   logMiddleware('screen-view', {screen_name: 'NewsListing'});
+  // }, []);
 
   const {data, isLoading, error} = useSearchEnterpriseQuery({
     q: q,

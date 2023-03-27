@@ -14,14 +14,19 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {logMiddleware} from '../../firebase/config';
 type EntryScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabScreenParamList>,
-  NativeStackNavigationProp<ParentStackParamList, 'Login'>
+  NativeStackNavigationProp<ParentStackParamList, 'Google'>
 >;
 
 const GoogleSignUpScreen = () => {
   const [userInfos, setUserInfos] = useState<userGoogleSignReturn>();
   const navigation = useNavigation<EntryScreenNavigationProp>();
+
+  // useEffect(() => {
+  //   logMiddleware('screen-view', {screen_name: 'Google'});
+  // }, []);
   GoogleSignin.configure({
     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
     iosClientId:

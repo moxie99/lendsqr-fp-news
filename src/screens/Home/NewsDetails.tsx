@@ -17,10 +17,15 @@ const NewsDetails = () => {
     params: {item},
   } = useRoute();
 
+  // useEffect(() => {
+  //   logMiddleware('screen-view', {screen_name: 'NewsDetails'});
+  // }, []);
+
   const navigation = useNavigation();
 
   const url = item.link;
   const navigateToNews = () => {
+    // logMiddleware('check_move_tonews', {url: url});
     navigation.navigate('NewsWebPage', {url: url});
   };
 

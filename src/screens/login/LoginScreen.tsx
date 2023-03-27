@@ -41,6 +41,10 @@ export default function LoginScreen() {
     navigation.navigate('Register');
   };
 
+  // useEffect(() => {
+  //   logMiddleware('screen-view', {screen_name: 'Login'});
+  // }, []);
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isValidEmail = emailRegex.test(email);
 
@@ -72,6 +76,8 @@ export default function LoginScreen() {
       .catch(error => {
         Alert.alert(error);
       });
+
+    // logMiddleware('login_with_data', {email: email, password: password});
 
     setEmail('');
     setPassword('');

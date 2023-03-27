@@ -3,6 +3,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+//import { getAnalytics } from "firebase/analytics";
 
 
 const firebaseConfig = {
@@ -18,7 +19,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth();
+//export const analytics = getAnalytics(app);
 export const provider = new GoogleAuthProvider();
+// export const logMiddleware = (eventName: any, eventParams = {}) => {
+//   logEvent(analytics, eventName, eventParams);
+// };
 provider.setCustomParameters({ prompt: 'select_account' });
 
 

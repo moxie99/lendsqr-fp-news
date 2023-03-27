@@ -30,6 +30,7 @@
 		B4B2DD9129CD9772002EA774 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4B2DD8129CD9772002EA774 /* EvilIcons.ttf */; };
 		B4B2DD9229CD9772002EA774 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4B2DD8229CD9772002EA774 /* SimpleLineIcons.ttf */; };
 		B4B2DD9329CD9772002EA774 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4B2DD8329CD9772002EA774 /* MaterialIcons.ttf */; };
+		B4DA0F9B29D17959001CDDC4 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4DA0F9A29D17959001CDDC4 /* AppCenter-Config.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		B4B2DD8129CD9772002EA774 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		B4B2DD8229CD9772002EA774 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		B4B2DD8329CD9772002EA774 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		B4DA0F9A29D17959001CDDC4 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		CCD1846B89E32437FDEFABE3 /* Pods-lendsqrfpnews-lendsqrfpnewsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lendsqrfpnews-lendsqrfpnewsTests.debug.xcconfig"; path = "Target Support Files/Pods-lendsqrfpnews-lendsqrfpnewsTests/Pods-lendsqrfpnews-lendsqrfpnewsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 		13B07FAE1A68108700A75B9A /* lendsqrfpnews */ = {
 			isa = PBXGroup;
 			children = (
+				B4DA0F9A29D17959001CDDC4 /* AppCenter-Config.plist */,
 				B4B2DD7329CD9772002EA774 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -305,6 +308,7 @@
 				B4B2DD8E29CD9772002EA774 /* FontAwesome5_Regular.ttf in Resources */,
 				B4B2DD8C29CD9772002EA774 /* Ionicons.ttf in Resources */,
 				B4B2DD9129CD9772002EA774 /* EvilIcons.ttf in Resources */,
+				B4DA0F9B29D17959001CDDC4 /* AppCenter-Config.plist in Resources */,
 				B4B2DD8729CD9772002EA774 /* Entypo.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				B4B2DD9029CD9772002EA774 /* Zocial.ttf in Resources */,

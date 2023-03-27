@@ -27,4 +27,3 @@ export const newsApi = createApi({
 export const { useSearchEnterpriseQuery } = newsApi;
 
 
-// cfAjBJr1mKnj4ZrsWrAIB3Eb7g8jgW2QOBVggajUYSM

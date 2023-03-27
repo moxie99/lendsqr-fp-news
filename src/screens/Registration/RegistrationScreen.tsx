@@ -27,7 +27,7 @@ import styles from './styles';
 
 type EntryScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabScreenParamList>,
-  NativeStackNavigationProp<ParentStackParamList, 'Login'>
+  NativeStackNavigationProp<ParentStackParamList, 'Register'>
 >;
 
 type EntryScreenRouteProp = RouteProp<ParentStackParamList, 'Register'>;
@@ -38,6 +38,10 @@ export default function RegistrationScreen() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  // useEffect(() => {
+  //   logMiddleware('screen-view', {screen_name: 'Register'});
+  // }, []);
 
   const navigation = useNavigation<EntryScreenNavigationProp>();
   const onFooterLinkPress = () => {
@@ -71,19 +75,24 @@ export default function RegistrationScreen() {
           })
           .catch((error: any) => {
             Alert.alert(error);
-            console.log('$$$$$', error);
           });
       })
       .catch((error: any) => {
         Alert.alert(error);
-        console.log('****', error);
       });
+
+    // logMiddleware('register_with_data', {
+    //   email: email,
+    //   password: password,
+    //   fullName: fullName,
+    //   phoneNumber: phoneNumber,
+    // });
 
     setFullName('');
     setEmail('');
     setPassword('');
     setConfirmPassword('');
-    set;
+    setPhoneNumber('');
   };
 
   return (
