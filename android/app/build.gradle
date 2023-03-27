@@ -95,9 +95,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.lendsqrfpnews"
+    namespace "com.lendsqr.news"
     defaultConfig {
-        applicationId "com.lendsqrfpnews"
+        applicationId "com.lendsqr.news"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

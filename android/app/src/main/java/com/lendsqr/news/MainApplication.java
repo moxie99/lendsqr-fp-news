@@ -1,4 +1,4 @@
-package com.lendsqrfpnews;
+package com.lendsqr.news;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
