@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {SearchBar} from '@rneui/themed';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {
@@ -9,20 +9,22 @@ import {
   SafeAreaView,
   ScrollView,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 import './styles';
 import {useSearchEnterpriseQuery} from '../../../redux/api';
 import NewsHeader from '../../components/NewsHeader';
+import {useSelector} from 'react-redux';
 import NewsCard from '../../components/NewsCardOdd';
 import IndicatorExample from '../../components/NewsSlider';
+import {useDispatch} from 'react-redux';
 
 type AvatarData = {
   q?: string;
 };
 export default function NewsListing({q}: AvatarData) {
   const insets = useSafeAreaInsets();
-  const [search, setSearch] = useState('');
 
   // useEffect(() => {
   //   logMiddleware('screen-view', {screen_name: 'NewsListing'});
@@ -35,10 +37,7 @@ export default function NewsListing({q}: AvatarData) {
     page: '1',
   });
 
-  const updateSearch = (search: React.SetStateAction<string>) => {
-    setSearch(search);
-  };
-
+  console.log(data);
   if (isLoading) {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
@@ -63,24 +62,23 @@ export default function NewsListing({q}: AvatarData) {
         marginHorizontal: '3%',
       }}>
       <NewsHeader />
-      <SearchBar
-        placeholder="Search News..."
-        onChangeText={updateSearch}
-        value={search}
-        containerStyle={{
+      {/* <TextInput
+        style={{
+          width: '97%',
+          height: 50,
+          borderWidth: 1,
+          borderColor: '#0080ff',
+          paddingHorizontal: 10,
           borderRadius: 10,
-          backgroundColor: '#0080ff',
+          marginBottom: insets.bottom * 0.2,
         }}
-        inputContainerStyle={{
-          backgroundColor: 'white',
-          width: '100%',
-        }}
-      />
+        placeholder="Enter text here"
+      /> */}
 
-      {/* <IndicatorExample /> */}
+      <IndicatorExample />
 
       {data &&
-        data?.articles?.map(item => (
+        data?.articles?.map((item: {_id: React.Key | null | undefined}) => (
           <ScrollView key={item._id}>
             <NewsCard item={item} />
           </ScrollView>
