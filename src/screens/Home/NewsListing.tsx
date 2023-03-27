@@ -75,11 +75,13 @@ export default function NewsListing({q}: AvatarData) {
         placeholder="Enter text here"
       /> */}
 
-      <IndicatorExample />
+      <IndicatorExample data={data?.articles} />
 
       {data &&
         data?.articles?.map((item: {_id: React.Key | null | undefined}) => (
-          <ScrollView key={item._id}>
+          <ScrollView
+            key={item._id}
+            contentContainerStyle={{marginTop: insets.top * 0.5}}>
             <NewsCard item={item} />
           </ScrollView>
         ))}

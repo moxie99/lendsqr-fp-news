@@ -47,6 +47,9 @@ const ParentNavigator = () => {
           <ParentStack.Screen name="NewsListing" component={NewsListing} />
           <ParentStack.Screen name="NewsDetails" component={NewsDetails} />
           <ParentStack.Screen name="NewsWebPage" component={NewsWebPage} />
+          <ParentStack.Screen name="Login" component={LoginScreen} />
+          <ParentStack.Screen name="Register" component={RegistrationScreen} />
+          <ParentStack.Screen name="Google" component={GoogleSignUpScreen} />
         </ParentStack.Group>
       ) : (
         <ParentStack.Group>
@@ -54,6 +57,9 @@ const ParentNavigator = () => {
           <ParentStack.Screen name="Register" component={RegistrationScreen} />
           <ParentStack.Screen name="Google" component={GoogleSignUpScreen} />
           <ParentStack.Screen name="NewsHeader" component={NewsHeader} />
+          <ParentStack.Screen name="NewsListing" component={NewsListing} />
+          <ParentStack.Screen name="NewsDetails" component={NewsDetails} />
+          <ParentStack.Screen name="NewsWebPage" component={NewsWebPage} />
           <ParentStack.Screen name="Main">
             {props => <TabNavigator {...props} extraData={users} />}
           </ParentStack.Screen>

@@ -8,7 +8,7 @@ export const newsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.newscatcherapi.com/v2/',
     prepareHeaders: (headers) => {
-      headers.set('x-api-key','zxbgE2jBjajX0UszCeCOnKKJytmJa8OvAARBmpn-QIA');
+      headers.set('x-api-key','YnSFfkmTwBIdTqI-qELB4WxTUpVlBmqf6dZhhg73QF0');
       return headers;
     },
   }),
@@ -27,9 +27,6 @@ export const newsApi = createApi({
 export const { useSearchEnterpriseQuery } = newsApi;
 
 
-<<<<<<< HEAD
-=======
 // cfAjBJr1mKnj4ZrsWrAIB3Eb7g8jgW2QOBVggajUYSM
 
 // cfAjBJr1mKnj4ZrsWrAIB3Eb7g8jgW2QOBVggajUYSM
->>>>>>> 5ee83ecd97c8c72107709f91644a13debcffbd6e

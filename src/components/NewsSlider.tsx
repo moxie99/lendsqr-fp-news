@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, SafeAreaView, Text, Dimensions} from 'react-native';
+import {View, SafeAreaView, Text, Dimensions, Image} from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -16,7 +16,7 @@ const {width, height} = Dimensions.get('screen');
 const textColor = '#2A3B38';
 const gray = '#A0A0A0';
 const slideWidth = width * 0.75;
-const slideHeight = height * 0.5;
+const slideHeight = height * 0.3;
 
 const slides = [
   {
@@ -60,28 +60,38 @@ const Slide = ({slide, scrollOffset, index}: any) => {
           flex: 1,
           width: slideWidth,
           height: slideHeight,
-          paddingVertical: 10,
+          paddingVertical: 0,
+          borderColor: textColor,
+          borderWidth: 1,
+          borderRadius: 10,
+          marginBottom: 10,
         },
         animatedStyle,
       ]}>
+      <Image
+        source={{uri: slide.media}}
+        style={{
+          width: '100%',
+          height: slideHeight * 0.7,
+          resizeMode: 'cover',
+          borderRadius: 10,
+        }}
+      />
       <View
         style={{
           padding: 10,
           alignItems: 'center',
-          borderColor: textColor,
-          borderWidth: 3,
-          borderRadius: 10,
-          height: '100%',
+
+          height: slideHeight * 0.2,
           justifyContent: 'center',
         }}>
-        <Ionicons name="albums-outline" size={100} color={textColor} />
         <Text
           style={{
             color: textColor,
-            fontSize: 30,
+            fontSize: 20,
             fontWeight: 'bold',
           }}>
-          {slide.text}
+          {slide.title}
         </Text>
       </View>
     </Animated.View>
@@ -119,7 +129,7 @@ const Indicator = ({scrollOffset, index}: any) => {
   );
 };
 
-const IndicatorExample = () => {
+const IndicatorExample = ({data}) => {
   const scrollOffset = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: event => {
@@ -141,7 +151,7 @@ const IndicatorExample = () => {
           justifyContent: 'center',
         }}
         onScroll={scrollHandler}>
-        {slides.map((slide, index) => {
+        {data?.map((slide, index) => {
           return (
             <Slide
               key={index}
@@ -152,13 +162,13 @@ const IndicatorExample = () => {
           );
         })}
       </Animated.ScrollView>
-      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        {slides.map((_, index) => {
+      {/* <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+        {data?.map((_, index) => {
           return (
             <Indicator key={index} index={index} scrollOffset={scrollOffset} />
           );
         })}
-      </View>
+      </View> */}
     </SafeAreaView>
   );
 };
